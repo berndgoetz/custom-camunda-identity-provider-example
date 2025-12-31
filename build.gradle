@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.9'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'berndgoetz'
+version = '0.9.0'
+description = 'Custom Camunda Identity Provider Example'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+ext {
+    camundaVersion = '7.24.0'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.camunda.bpm:camunda-bom:${camundaVersion}"
+    }
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation ('org.springframework.boot:spring-boot-starter-data-jpa') {
+        exclude group: 'org.glassfish.jaxb', module: 'jaxb-runtime'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest'
+    implementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp'
+
+    testImplementation 'org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-test'
+
+    implementation 'com.h2database:h2'
+
+}

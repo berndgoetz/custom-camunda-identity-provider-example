@@ -1,0 +1,29 @@
+package berndgoetz.camunda.engine.idservice;
+
+import org.camunda.bpm.engine.identity.Group;
+import org.camunda.bpm.engine.impl.GroupQueryImpl;
+import org.camunda.bpm.engine.impl.Page;
+import org.camunda.bpm.engine.impl.interceptor.CommandContext;
+import org.camunda.bpm.engine.impl.interceptor.CommandExecutor;
+
+import java.util.List;
+
+public class CustomGroupQuery extends GroupQueryImpl {
+
+    public CustomGroupQuery(CommandExecutor commandExecutor) {
+        super(commandExecutor);
+    }
+
+    @Override
+    public long executeCount(CommandContext commandContext) {
+        var provider = (CustomIdentityProviderSession)commandContext.getReadOnlyIdentityProvider();
+        return provider.findGroupCountByQueryCriteria(this);
+    }
+
+    @Override
+    public List<Group> executeList(CommandContext commandContext, Page page) {
+        var provider = (CustomIdentityProviderSession)commandContext.getReadOnlyIdentityProvider();
+        return provider.findGroupByQueryCriteria(this, page);
+    }
+
+}
