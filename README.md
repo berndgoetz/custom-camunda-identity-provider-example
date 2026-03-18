@@ -14,3 +14,7 @@ Use Java 25, it should also run with Java 21.
 Run it as a Spring Boot application, e.g. from your IDE or by using:
 
 ```gradlew bootRun```
+
+# Questions?
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/berndgoetz/custom-camunda-identity-provider-example)
